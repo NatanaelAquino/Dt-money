@@ -4,6 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/shared/colors";
 import { useRef, useState } from "react";
 import clsx from "clsx";
+import { ErrorMessage } from "../ErrorMessage";
 
 interface AppInputParams<T extends FieldValues> extends TextInputProps {
     control: Control<T>;
@@ -22,11 +23,15 @@ export const AppInput = <T extends FieldValues>({ control, name, leftIconName, s
             setIsFocused(inputRef.current.isFocused());
         }
     }
+
+       
+    
     return (
         <Controller
             control={control}
             name={name}
-            render={({ field: { onChange, value } }) => {
+            render={({ field: { onChange, value, },fieldState: { error  }}) => {
+                console.log(error);
                 return (
                     <View className="w-full mb-4">
                         {
@@ -62,12 +67,13 @@ export const AppInput = <T extends FieldValues>({ control, name, leftIconName, s
                                 secureTextEntry && (
                                     <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                                         <MaterialIcons name={showPassword ? "visibility" : "visibility-off"}
-                                         size={24} 
-                                        color={isFocused ? colors["accent-brand"] : colors.gray[600]} />
+                                            size={24}
+                                            color={isFocused ? colors["accent-brand"] : colors.gray[600]} />
                                     </TouchableOpacity>
                                 )
                             }
                         </TouchableOpacity>
+                        { error && error.message ? <ErrorMessage error={error.message}/> : null}
                     </View>
                 )
             }}
