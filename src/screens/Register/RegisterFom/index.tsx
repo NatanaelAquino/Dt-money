@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Text, View } from "react-native"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
-interface RegisterFormProps {
+export interface RegisterFormProps {
     email: string;
     password: string;
     confirmPassword: string;
