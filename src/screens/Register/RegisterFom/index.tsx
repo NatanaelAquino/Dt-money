@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import { Text, View } from "react-native"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
+import { useAuthContext } from "@/context/Auth.context";
+import { AxiosError } from "axios";
 export interface RegisterFormProps {
     email: string;
     password: string;
@@ -15,6 +17,8 @@ export interface RegisterFormProps {
 }
 
 export function RegisterForm() {
+
+    const { handleRegister} = useAuthContext();
 
     const { control, handleSubmit, formState: { isSubmitted } } = useForm<RegisterFormProps>({
         defaultValues: {
@@ -27,7 +31,15 @@ export function RegisterForm() {
     });
 
     const navigation = useNavigation<StackNavigationProp<PublicStackParamList>>()
-    const onsubmit = async () => { }
+    const onsubmit = async (userData: RegisterFormProps) => { 
+        try {
+            await handleRegister(userData)
+        } catch (error) {
+            if(error instanceof AxiosError) {
+                console.log(error.response?.data);
+            }
+        }
+    }
     return (
         <>
             <AppInput
