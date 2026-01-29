@@ -8,8 +8,10 @@ import { AppInput } from "@/components/AppInput/Index";
 import { PublicStackParamList } from "@/routes/PublicRoutes";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-import {yupResolver} from "@hookform/resolvers/yup";
-import {schema} from "./schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./schema";
+import { useAuthContext } from "@/context/Auth.context";
+import { AxiosError } from "axios";
 
 
 
@@ -20,6 +22,7 @@ export interface FormLoginParams {
 };
 
 export const LoginForm = () => {
+    const navigation = useNavigation<StackNavigationProp<PublicStackParamList>>()
     const {
         control,
         handleSubmit,
@@ -32,8 +35,18 @@ export const LoginForm = () => {
         resolver: yupResolver(schema),
     });
 
-    const navigation = useNavigation<StackNavigationProp<PublicStackParamList>>();
-    const onsubmit = async () => {}
+    const { handleAuthentication } = useAuthContext();
+
+
+    const onSubmit = async (userData: FormLoginParams) => {
+        try {
+            await handleAuthentication(userData);
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                console.log(error.response?.data);
+            }
+        }
+    }
     return (
         <View className="flex-1 justify-between mt-8 mb-6 h-full">
             <AppInput
@@ -52,13 +65,13 @@ export const LoginForm = () => {
                 secureTextEntry
             />
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[200px] " >
-                <AppButton iconName={"arrow-forward"}  onPress={handleSubmit(onsubmit)}>Login</AppButton>
+                <AppButton onPress={handleSubmit(onSubmit)} iconName={"arrow-forward"} >Login</AppButton>
                 <View>
                     <Text className="mb-6 text-gray-300 text-base" >Não possui uma conta?</Text>
-                    <AppButton 
-                    iconName={"arrow-forward"} 
-                    mode="outline" 
-                    onPress={() => navigation.navigate("Register") }
+                    <AppButton
+                        iconName={"arrow-forward"}
+                        mode="outline"
+                        onPress={() => navigation.navigate("Register")}
                     >Cadastrar</AppButton>
                 </View>
             </View>

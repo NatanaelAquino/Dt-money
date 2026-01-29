@@ -9,7 +9,6 @@ export const Login = () => {
 
   const { user } = useAuthContext()
 
-  console.log('USER CONTEXT LOGIN SCREEN', user)
   return (
     <DimissKeyBoardView>
       <View className="flex-1 w-[82%] self-center ">

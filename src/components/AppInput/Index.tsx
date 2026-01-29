@@ -31,7 +31,6 @@ export const AppInput = <T extends FieldValues>({ control, name, leftIconName, s
             control={control}
             name={name}
             render={({ field: { onChange, value, },fieldState: { error  }}) => {
-                console.log(error);
                 return (
                     <View className="w-full mb-4">
                         {

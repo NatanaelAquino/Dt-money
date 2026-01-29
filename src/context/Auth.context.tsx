@@ -1,10 +1,11 @@
 import { FormLoginParams } from "@/screens/login/LoginForm";
 import { RegisterFormProps } from "@/screens/Register/RegisterFom";
 import { createContext, FC, PropsWithChildren, use, useContext, useState } from "react";
-
+import * as authService from "@/shared/services/dt-money/auth.service";
+import { Iuser } from "@/shared/interfaces/https/user-interface";
 
 type AuthContextType = {
-    user: null;
+    user: Iuser | null;
     token: string | null;
     handleAuthentication: (params: FormLoginParams) => void;
     handleRegister: (params: RegisterFormProps) => void;
@@ -17,9 +18,17 @@ export const AuthContext = createContext<AuthContextType>(
 );
 
 export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<Iuser | null>(null);
     const [token, setToken] = useState<string | null>(null);
-    const handleAuthentication = async ({ email, password }: FormLoginParams) => { };
+    const handleAuthentication = async (userDate: FormLoginParams) => {
+            const { user, token } = await authService.authnticate(userDate);
+            setUser(user);
+            setToken(token);
+            console.log(user, token);
+       
+    };
+
+
     const handleRegister = async (formData: RegisterFormProps) => { };
 
     const handleLogout = () => { }
@@ -39,7 +48,7 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
 }
 
 
-export const useAuthContext = ()=>{
-    const context  = useContext(AuthContext);
+export const useAuthContext = () => {
+    const context = useContext(AuthContext);
     return context;
 };
