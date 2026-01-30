@@ -39,8 +39,10 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setToken(token);
     };
 
-    const handleLogout = () => {
-
+    const handleLogout = async () => {
+        await AsyncStrore.removeItem('dt-money-token');
+        setUser(null);
+        setToken(null);
     }
     const restoreUserSession = async () => {
         const userSession = await AsyncStrore.getItem('dt-money-token');
