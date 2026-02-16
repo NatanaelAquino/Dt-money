@@ -4,11 +4,12 @@ import { PublicStackParamList } from "@/routes/PublicRoutes"
 import { useNavigation } from "@react-navigation/native"
 import { StackNavigationProp } from "@react-navigation/stack"
 import { useForm } from "react-hook-form";
-import { Text, View } from "react-native"
+import { ActivityIndicator, Text, View } from "react-native"
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
 import { useAuthContext } from "@/context/Auth.context";
-import { AxiosError } from "axios";
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
+import { colors } from "@/shared/colors";
 export interface RegisterFormProps {
     email: string;
     password: string;
@@ -19,6 +20,7 @@ export interface RegisterFormProps {
 export function RegisterForm() {
 
     const { handleRegister} = useAuthContext();
+    const {handleError} = useErrorHandler();
 
     const { control, handleSubmit, formState: { isSubmitted } } = useForm<RegisterFormProps>({
         defaultValues: {
@@ -35,9 +37,7 @@ export function RegisterForm() {
         try {
             await handleRegister(userData)
         } catch (error) {
-            if(error instanceof AxiosError) {
-                console.log(error.response?.data);
-            }
+            handleError(error, 'Não foi possível realizar a operação, tente novamente mais tarde.');
         }
     }
     return (
@@ -69,7 +69,7 @@ export function RegisterForm() {
                 secureTextEntry
             />
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[200px] " >
-                <AppButton iconName={"arrow-forward"}  onPress={handleSubmit(onsubmit)} >Cadastrar</AppButton>
+                <AppButton iconName={"arrow-forward"}  onPress={handleSubmit(onsubmit)} >{isSubmitted ? <ActivityIndicator color={colors.white} /> : 'Cadastrar'}</AppButton>
                 <View>
                     <Text className="mb-6 text-gray-300 text-base" >Já possui uma conta?</Text>
                     <AppButton

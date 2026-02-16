@@ -5,7 +5,6 @@ import * as authService from "@/shared/services/dt-money/auth.service";
 import { Iuser } from "@/shared/interfaces/https/user-interface";
 import AsyncStrore from "@react-native-async-storage/async-storage";
 import { IauthenticateResponse } from "@/shared/interfaces/https/authenticate-response";
-import { set } from "react-hook-form";
 
 type AuthContextType = {
     user: Iuser | null;
@@ -48,11 +47,11 @@ export const AuthContextProvider: FC<PropsWithChildren> = ({ children }) => {
         const userSession = await AsyncStrore.getItem('dt-money-token');
         if (userSession) {
             const { user, token } = JSON.parse(userSession) as IauthenticateResponse;
-            setUser(user);  
+            setUser(user);
             setToken(token);
         }
         return userSession
-        
+
     }
 
     return (

@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { useForm } from "react-hook-form"
-import { Text, View } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 
 
 import { AppButton } from "@/components/AppButton";
@@ -11,10 +11,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
 import { useAuthContext } from "@/context/Auth.context";
-import { AxiosError } from "axios";
-
-
-
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
+import { colors } from "@/shared/colors";
 
 export interface FormLoginParams {
     email: string;
@@ -36,15 +34,13 @@ export const LoginForm = () => {
     });
 
     const { handleAuthentication } = useAuthContext();
-
+    const { handleError } = useErrorHandler();
 
     const onSubmit = async (userData: FormLoginParams) => {
         try {
             await handleAuthentication(userData);
         } catch (error) {
-            if (error instanceof AxiosError) {
-                console.log(error.response?.data);
-            }
+            handleError(error, 'Não foi possível realizar a operação, tente novamente mais tarde.');
         }
     }
     return (
@@ -65,14 +61,16 @@ export const LoginForm = () => {
                 secureTextEntry
             />
             <View className="flex-1 justify-between mt-8 mb-6 min-h-[200px] " >
-                <AppButton onPress={handleSubmit(onSubmit)} iconName={"arrow-forward"} >Login</AppButton>
+                <AppButton onPress={handleSubmit(onSubmit)} iconName={"arrow-forward"} >{isSubmitted ? <ActivityIndicator color={colors.white} /> : 'Cadastrar'}</AppButton>
                 <View>
                     <Text className="mb-6 text-gray-300 text-base" >Não possui uma conta?</Text>
                     <AppButton
                         iconName={"arrow-forward"}
                         mode="outline"
                         onPress={() => navigation.navigate("Register")}
-                    >Cadastrar</AppButton>
+                    >
+                        Cadastrar
+                    </AppButton>
                 </View>
             </View>
         </View>

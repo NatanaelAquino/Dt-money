@@ -8,7 +8,7 @@ import { Loading } from '@/screens/loading';
 
 
 const NavigationRoute = () => {
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const { user, token} = useAuthContext();
 
     const Routes = useCallback(() => {
@@ -16,7 +16,7 @@ const NavigationRoute = () => {
         if (!user || !token) {
             return <PublicRoutes />
         }
-        return <PrivateRoutes />
+        return <PublicRoutes />
     }, [user,token,loading])
 
     return (

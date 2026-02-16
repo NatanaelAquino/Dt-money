@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/context/Auth.context"
 import { colors } from "@/shared/colors"
 import { FC, useEffect } from "react"
-import { ActivityIndicator, Text, View, Image } from "react-native"
+import { ActivityIndicator, Image } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 
@@ -29,14 +29,12 @@ export const Loading: FC<Props> = ({ setLoading }) => {
             }
         )()
     })
-
     return (
-        <SafeAreaView className="bg-background-primary flex-1 items-center justify-center ">
+        <SafeAreaView className="bg-background-primary flex-1 items-center justify-center">
             <>
-                <Image className="h-[48px] w-[255px] " source={require("@/assets/Logo.png")}/>
+                <Image className="h-[48px] w-[255px]" source={require("@/assets/Logo.png")}/>
                 <ActivityIndicator color={colors.white} className="mt-20" />
             </>
-
         </SafeAreaView>
     )
 }
