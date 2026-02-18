@@ -3,6 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from "@/shared/colors";
 import { useAuthContext } from "@/context/Auth.context";
 import { useBottomSheetContext } from "@/context/bottomsheet.context";
+import { NewTransaction } from "../NewTransaction";
 export const AppHeader = () => {
 
 
@@ -20,7 +21,7 @@ export const AppHeader = () => {
 
             <TouchableOpacity
     
-                onPress={() => { console.log("open"), open(<Text>FOI</Text>, 0) }}
+                onPress={() => { console.log("open"), open(<NewTransaction/>, 0) }}
                 className="bg-accent-brand w-[130px] items-center justify-center rounded-lg h-[50px]"
 
             >
