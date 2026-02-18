@@ -13,10 +13,11 @@ const NavigationRoute = () => {
 
     const Routes = useCallback(() => {
         if(loading) return <Loading setLoading={setLoading}/>
+        
         if (!user || !token) {
-            return <PublicRoutes />
+            return <PrivateRoutes />
         }
-        return <PublicRoutes />
+        return < PrivateRoutes/>
     }, [user,token,loading])
 
     return (
