@@ -23,7 +23,6 @@ export const SnackBarContextProvider: FC<PropsWithChildren> = ({ children }) => 
 
 
     const notify = ({ message, messagetype }: NotifyMessageParams) => {
-        console.log()
         setMessage(message);
         setType(messagetype);
         setTimeout(() => {

@@ -1,7 +1,6 @@
-export interface CreateTransaction{
-    description: string;
-    type: number;
-    value: number;
-    category: string;
-
+export interface CreateTransaction {
+   description: string
+  typeId: number
+  categoryId: number
+  value: number
 }

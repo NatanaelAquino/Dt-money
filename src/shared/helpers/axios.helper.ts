@@ -1,19 +1,35 @@
-import AsyncStrore from "@react-native-async-storage/async-storage";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosInstance } from "axios";
 import { IauthenticateResponse } from "../interfaces/https/authenticate-response";
 
+let authToken: string | null = null;
+
+export const setInMemoryToken = (token: string | null) => {
+    authToken = token;
+};
 
 export const addTokenToResquest = (axiosInstance: AxiosInstance) => {
     axiosInstance.interceptors.request.use(async (config) => {
-        const userData = await AsyncStrore.getItem('dt-money-token');
-        if (userData) {
-            const { token } = JSON.parse(userData) as IauthenticateResponse;
-
-            if (token) {
-                config.headers.Authorization = `Bearer ${token}`;
+        let token = authToken;
+        console.log("Token", token);
+        if (!token) {
+            const userData = await AsyncStorage.getItem('dt-money-token');
+            console.log("userData", userData);
+            if (userData) {
+                try {
+                    const parsed = JSON.parse(userData) as IauthenticateResponse;
+                    token = parsed.token;
+                    authToken = token;
+                } catch (e) {
+                    console.error("Erro no parse do interceptor", e);
+                }
             }
         }
-        return config
-    })
-}
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+
+        return config;
+    });
+};
