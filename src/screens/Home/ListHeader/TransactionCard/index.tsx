@@ -28,7 +28,7 @@ export interface CardData {
 }
 
 
-export const TransactionCard: FC<Props> = ({ type, amount }) => {
+export const ListCard: FC<Props> = ({ type, amount }) => {
 
     const iconData = ICONS[type]
     const cardData = CARD_DATA[type]
