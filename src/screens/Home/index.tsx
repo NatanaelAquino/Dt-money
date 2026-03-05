@@ -6,11 +6,12 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ListHeader } from "./ListHeader";
 import { TransactionCard } from "./TransactionCard";
+import { RefreshControl } from "react-native-gesture-handler";
 
 export function Home() {
 
     const { handleLogout } = useAuthContext()
-    const { fetchCategories, fetchTransaction, transactions } = useTransactionContext()
+    const { fetchCategories, fetchTransaction, transactions, refashTransaction, loading } = useTransactionContext()
     const { handleError } = useErrorHandler()
     const handleFetchCategories = async () => {
         try {
@@ -34,6 +35,9 @@ export function Home() {
                 keyExtractor={({ id }) => `transaction-${id}`}
                 renderItem={({item}) => <TransactionCard transaction={item} />}
                 ListHeaderComponent={<ListHeader />}
+                refreshControl={
+                    <RefreshControl refreshing={loading} onRefresh={refashTransaction} />
+                }
             />
         </SafeAreaView>
     )

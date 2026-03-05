@@ -10,6 +10,7 @@ import { transactionTypesEnum } from "@/shared/enums/transction-types";
 import clsx from "clsx";
 import { RightAction } from "./RightAction";
 import { LeftAction } from "./LeftAction";
+import { moneyMapper } from "@/utils/money-mapper";
 
 interface Params {
     transaction: Transaction
@@ -26,8 +27,8 @@ export const TransactionCard: FC<Params> = ({ transaction }) => {
                 width: "90%",
                 marginBottom: 16
             }}
-            renderLeftActions={ () => <LeftAction transaction={transaction}/>}
-            renderRightActions={ () => <RightAction transactionId={transaction.id}/>}
+            renderLeftActions={() => <LeftAction transaction={transaction} />}
+            renderRightActions={() => <RightAction transactionId={transaction.id} />}
             overshootRight={false}
             overshootLeft={false}
         >
@@ -35,19 +36,19 @@ export const TransactionCard: FC<Params> = ({ transaction }) => {
                 <Text className="text-white text-base ">
                     {transaction.description}
                 </Text>
-                <Text className= {clsx(
-                    "text-2xl font-bold mt-2", isExpense ? "text-accent-red" : "text-accent-brand-light",
+                <Text className={clsx(
+                    "text-2xl font-bold mt-2", isExpense ? "text-accent-brand-light" : "text-accent-red",
 
                 )}
-                > {transaction.type.id === transactionTypesEnum.REVENUE && "-"}R${" "}
-                    {transaction.value.toFixed(2).replace(".", ",")}</Text>
+                > {transaction.type.id === transactionTypesEnum.EXPENSE && "-"}
+                    {moneyMapper(transaction.value)}</Text>
                 <View className="flex-row w-full justify-between items-center">
-                    <View className=" items-center flex-row mt-3"> 
-                        <MaterialIcons name="label-outline"  color={colors.gray["700"]} size={23}/>
+                    <View className=" items-center flex-row mt-3">
+                        <MaterialIcons name="label-outline" color={colors.gray["700"]} size={23} />
                         <Text className="text-gray-700 text-base ml-2">{transaction.category.name}</Text>
                     </View>
-                    <View className=" items-center flex-row mt-3"> 
-                        <MaterialIcons name="calendar-month"  color={colors.gray["700"]} size={20} />
+                    <View className=" items-center flex-row mt-3">
+                        <MaterialIcons name="calendar-month" color={colors.gray["700"]} size={20} />
                         <Text className="text-gray-700 text-base ml-2">{format(new Date(transaction.createdAt), "dd/MM/yyyy")}</Text>
                     </View>
                 </View>

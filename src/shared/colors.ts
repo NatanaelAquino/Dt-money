@@ -9,7 +9,6 @@ export const colors = {
   'background-primary': '#121214',
   'background-secondary': '#202024',
   'background-tertiary': '#29292E',
-  'accent-blue-background-primary': '#284DAA',
   white: '#FFFFFF',
   gray: {
     800: '#323238',
