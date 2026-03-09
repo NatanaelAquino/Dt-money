@@ -180,12 +180,11 @@ Adicione aqui as informações da licença se desejar.
 ---
 
 📌 **Observação:**  
-Adicione a imagem do aplicativo em:
-
 ```
-<img width="425" height="895" alt="image" src="https://github.com/user-attachments/assets/8859e983-df5e-4a8a-90eb-ca8fc23622a6" />
-<img width="414" height="874" alt="image" src="https://github.com/user-attachments/assets/42b02787-c5b7-4a16-a36e-102d3d5a956d" />
+## 📱 Preview do Aplicativo
 
+<p align="center">
+  <img width="300" src="https://github.com/user-attachments/assets/8859e983-df5e-4a8a-90eb-ca8fc23622a6" />
+  <img width="300" src="https://github.com/user-attachments/assets/42b02787-c5b7-4a16-a36e-102d3d5a956d" />
+</p>
 ```
-
-ou ajuste o caminho da imagem no README.
