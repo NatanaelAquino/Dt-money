@@ -17,7 +17,8 @@ const NavigationRoute = () => {
         if (user && token) {
             return <PrivateRoutes />
         }
-        return < PrivateRoutes />
+        return <PublicRoutes />
+    
     }, [user,token,loading])
 
     return (

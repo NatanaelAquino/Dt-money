@@ -11,10 +11,8 @@ export const setInMemoryToken = (token: string | null) => {
 export const addTokenToResquest = (axiosInstance: AxiosInstance) => {
     axiosInstance.interceptors.request.use(async (config) => {
         let token = authToken;
-        console.log("Token", token);
         if (!token) {
             const userData = await AsyncStorage.getItem('dt-money-token');
-            console.log("userData", userData);
             if (userData) {
                 try {
                     const parsed = JSON.parse(userData) as IauthenticateResponse;

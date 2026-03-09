@@ -5,6 +5,8 @@ import { DeleteModal } from "./DeleteModal";
 import * as TransactionService from "@/shared/services/dt-money/transaction.service"
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { useSnackBarContext } from "@/context/snackBar.context";
+import { useTransactionContext } from "@/context/Transaction.context";
+import { tr } from "date-fns/locale";
 
 interface Params {
     transactionId: number
@@ -13,8 +15,8 @@ interface Params {
 export const RightAction: FC<Params> = ({ transactionId }) => {
 
     const [modalVisible, setModalVisible] = useState(false)
-    const [loading, setLoading] = useState(false)
-
+    const {deleteTransaction,handleLoading,loadings} = useTransactionContext()
+    
     const {notify} = useSnackBarContext();
     const showModal = () => setModalVisible(true)
     const hideModal = () => setModalVisible(false)
@@ -23,14 +25,14 @@ export const RightAction: FC<Params> = ({ transactionId }) => {
 
     const handleDelete = async () => {
         try {
-            setLoading(true)
-            await TransactionService.deleteTransaction(transactionId)
+            handleLoading({ key: "refresh", value: true })
+            await deleteTransaction(transactionId)
             notify({ message: 'Transação excluida com sucesso', messagetype: 'success' })
             hideModal()
         } catch (error) {
             handleError(error, 'Não foi possível realizar a operação, tente novamente mais tarde.');
         } finally {
-            setLoading(false)
+             handleLoading({ key: "refresh", value: false })
 
         }
     }
@@ -44,7 +46,7 @@ export const RightAction: FC<Params> = ({ transactionId }) => {
             >
                 <MaterialIcons name="delete" size={30} color="red" />
             </TouchableOpacity>
-            <DeleteModal visible={modalVisible} hideModal={hideModal} handleDelete={handleDelete} />
+            <DeleteModal visible={modalVisible} hideModal={hideModal} handleDelete={handleDelete}  loading={loadings.refresh}/>
         </>
     )
 }

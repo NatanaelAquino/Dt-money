@@ -13,7 +13,7 @@ export const LeftAction: FC<Params> = ({transaction}) => {
     const {open} = useBottomSheetContext()
     return (
       <Pressable onPress={()=> {
-        open(<EditTransactionForm transaction={transaction}/>,1)
+        open(<EditTransactionForm transaction={transaction}/>,0)
       }}>
         <View className="h-[140] bg-accent-blue-dark w-[80] rounded-[6] items-center justify-center ">
             <MaterialIcons name="edit" size={30} color= {colors.white}/>

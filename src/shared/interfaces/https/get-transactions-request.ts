@@ -15,7 +15,7 @@ export interface GetTransactionsParams {
     from?: Date
     to?: Date
     typeId?: number
-    categoryId?: number
+    categoryIds?: number[]
     searchText?: string
 }
 
@@ -26,4 +26,11 @@ export interface GetTransactionsResponse {
     page: number
     perPage: number
     totalTransactions: TotalTransaction
+}
+
+export interface Filter {
+    from?: Date
+    to?: Date
+    typeId?: number
+    categoryId: Record<string, boolean>
 }
