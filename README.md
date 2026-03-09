@@ -1,85 +1,191 @@
-# DT Money App
+# 💰 DT Money App
 
 ![DT Money Screenshot](./assets/dt-money-screenshot.png)
 
-**DT Money** is a mobile finance manager built with Expo, React Native, and NativeWind (Tailwind CSS for React Native). The app allows users to log in, register, and manage transactions with start/stop loading states, error handling, and device‑friendly layouts.
+O **DT Money** é um aplicativo mobile de gerenciamento financeiro desenvolvido com **Expo**, **React Native** e **NativeWind** (Tailwind CSS para React Native).
+📚 **Este projeto foi desenvolvido como parte de um estudo baseado nos conteúdos da Rocketseat**, com o objetivo de praticar conceitos de desenvolvimento mobile utilizando React Native e Expo.
 
-## 🚀 Getting Started
+O aplicativo permite que o usuário:
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (16+ recommended)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (`npm install -g expo-cli`)
-- Android Studio or Xcode (for simulators) if running on a device/emulator
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url> dt-money-app
-   cd dt-money-app
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn
-   ```
-
-3. Start the development server:
-   ```bash
-   npm run start
-   # or
-   yarn start
-   ```
-
-4. Launch the app on a simulator or physical device:
-   - Android: `npm run android` (requires Android Studio)
-   - iOS (macOS only): `npm run ios` (requires Xcode)
-   - Web: `npm run web`
-
-### Project Structure
-
-```
-src/
-├── components/        # Reusable UI components
-├── context/           # React contexts for auth, transactions, snackbar, etc.
-├── screens/           # App screens (Home, Login, Register, etc.)
-├── shared/            # Colors, enums, API helpers, hooks, interfaces, services
-├── styles/            # Global Tailwind CSS import
-└── utils/             # Utility helpers (e.g. money mapper)
-```
-
-### Styling
-
-Tailwind-style utilities are applied via NativeWind. Update `tailwind.config.js` and `src/styles/global.css` as needed. Color tokens are defined in `src/shared/colors.ts`.
-
-### TypeScript
-
-The project uses strict TypeScript settings (see `tsconfig.json`). Add types when extending features.
-
-## 🛠 Development Tips
-
-- Use `npm run start -c` to clear Metro cache if styles or assets appear stale.
-- Follow the Babel alias `@` for imports (`import { X } from '@/components/X'`).
-- Modify Tailwind config if adding new file extensions or custom theme values.
-
-## 📦 Scripts
-
-| Command            | Description                      |
-|--------------------|----------------------------------|
-| `npm run start`    | Start Metro & Expo dev tools     |
-| `npm run android`  | Build+run on Android device/emulator |
-| `npm run ios`      | Build+run on iOS simulator (macOS)  |
-| `npm run web`      | Launch web preview               |
-
-## 📄 License
-
-This project is open source. Add license information here if applicable.
-
+- Fazer **login e cadastro**
+- **Adicionar e visualizar transações**
+- Controlar **entradas e saídas de dinheiro**
+- Exibir **estado de carregamento**
+- Tratar **erros de requisição**
+- Utilizar um layout adaptado para **dispositivos móveis**
 
 ---
 
-> 📌 **Note:** Add the screenshot image file at `assets/dt-money-screenshot.png` or adjust path accordingly.
+# 🚀 Como executar o projeto
+
+## Pré-requisitos
+
+Antes de começar, você precisa ter instalado:
+
+- **Node.js** (versão 16 ou superior)  
+- **npm** ou **yarn**
+- **Expo CLI**
+
+Instale o Expo CLI com:
+
+```bash
+npm install -g expo-cli
+```
+
+Para rodar no celular ou emulador:
+
+- **Android Studio** (Android)
+- **Xcode** (iOS – apenas macOS)
+
+---
+
+# 📦 Instalação
+
+### 1️⃣ Clonar o repositório
+
+```bash
+git clone <url-do-seu-repositorio>
+cd dt-money-app
+```
+
+### 2️⃣ Instalar as dependências
+
+```bash
+npm install
+```
+
+ou
+
+```bash
+yarn
+```
+
+---
+
+# ▶️ Executar o projeto
+
+Inicie o servidor de desenvolvimento:
+
+```bash
+npm run start
+```
+
+ou
+
+```bash
+yarn start
+```
+
+Depois você pode abrir o app em:
+
+### Android
+
+```bash
+npm run android
+```
+
+(requer Android Studio ou dispositivo conectado)
+
+### iOS (apenas macOS)
+
+```bash
+npm run ios
+```
+
+(requer Xcode)
+
+### Web
+
+```bash
+npm run web
+```
+
+---
+
+# 📁 Estrutura do projeto
+
+```
+src/
+├── components/        # Componentes reutilizáveis
+├── context/           # Contextos React (auth, transações, snackbar)
+├── screens/           # Telas do aplicativo (Home, Login, Register)
+├── shared/            # Cores, enums, interfaces, serviços e API
+├── styles/            # Estilos globais (Tailwind / NativeWind)
+└── utils/             # Funções utilitárias
+```
+
+---
+
+# 🎨 Estilização
+
+A estilização é feita com **NativeWind**, que permite usar **Tailwind CSS no React Native**.
+
+Configurações principais:
+
+- `tailwind.config.js`
+- `src/styles/global.css`
+
+As cores da aplicação estão definidas em:
+
+```
+src/shared/colors.ts
+```
+
+---
+
+# 🧠 TypeScript
+
+O projeto utiliza **TypeScript em modo estrito**, configurado no arquivo:
+
+```
+tsconfig.json
+```
+
+Sempre que adicionar novas funcionalidades, procure **tipar corretamente os dados**.
+
+---
+
+# 🛠 Dicas de desenvolvimento
+
+Se ocorrer problema de cache do Metro (estilos ou assets não atualizando), execute:
+
+```bash
+npm run start -c
+```
+
+Para facilitar os imports, o projeto usa **alias `@`**, exemplo:
+
+```ts
+import { Button } from '@/components/Button'
+```
+
+---
+
+# 📜 Scripts disponíveis
+
+| Comando | Descrição |
+|--------|-----------|
+| `npm run start` | Inicia o servidor do Expo |
+| `npm run android` | Executa no Android |
+| `npm run ios` | Executa no iOS (macOS) |
+| `npm run web` | Executa versão web |
+
+---
+
+# 📄 Licença
+
+Este projeto é open source.  
+Adicione aqui as informações da licença se desejar.
+
+---
+
+📌 **Observação:**  
+Adicione a imagem do aplicativo em:
+
+```
+<img width="425" height="895" alt="image" src="https://github.com/user-attachments/assets/8859e983-df5e-4a8a-90eb-ca8fc23622a6" />
+<img width="414" height="874" alt="image" src="https://github.com/user-attachments/assets/42b02787-c5b7-4a16-a36e-102d3d5a956d" />
+
+```
+
+ou ajuste o caminho da imagem no README.
